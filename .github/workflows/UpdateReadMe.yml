@@ -12,14 +12,23 @@ jobs:
   update-readme:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
 
       - name: Run FRC naming convention check and generate Markdown
         run: python3 .github/FRCNamingCheck.py
 
+      - name: Install GitHub CLI
+        run: sudo apt-get update && sudo apt-get install -y gh jq
+
       - name: Fetch all issues and append to README section
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           echo "## Open Issues" > issues.md
           gh issue list --repo ${{ github.repository }} --limit 100 --json number,title,state,url | jq -r '.[] | "- [#\(.number)](\(.url)): \(.title) (\(.state))"' >> issues.md
@@ -33,3 +42,4 @@ jobs:
         with:
           commit_message: "Update README.md with naming convention issues, listed files, and open GitHub issues"
           file_pattern: README.md
+          github_token: ${{ secrets.GH_PAT }}
