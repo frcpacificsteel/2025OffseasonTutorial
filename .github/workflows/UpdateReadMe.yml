@@ -1,0 +1,35 @@
+name: Update README with Naming Issues and Repo Issues
+
+on:
+  push:
+    paths:
+      - 'src/main/java/frc/robot/**'
+  pull_request:
+    paths:
+      - 'src/main/java/frc/robot/**'
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run FRC naming convention check and generate Markdown
+        run: python3 .github/FRCNamingCheck.py
+
+      - name: Fetch all issues and append to README section
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "## Open Issues" > issues.md
+          gh issue list --repo ${{ github.repository }} --limit 100 --json number,title,state,url | jq -r '.[] | "- [#\(.number)](\(.url)): \(.title) (\(.state))"' >> issues.md
+
+      - name: Combine Markdown sections into README.md
+        run: |
+          cat violations.md issues.md > README.md
+
+      - name: Commit & push updated README.md
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update README.md with naming convention issues, listed files, and open GitHub issues"
+          file_pattern: README.md
