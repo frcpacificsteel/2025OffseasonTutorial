@@ -77,7 +77,7 @@ rightBack.enableVoltageCompensation(true);
 @Override
 public void robotPeriodic() {
 
-// SmartDashBoard Set-Up
+// SmartDashboard Setup
 SmartDashboard.putNumber("Joystick X-Axis: ",   joystick0.getRawAxis(0));
 SmartDashboard.putNumber("Joystick0 Y-Axis: ",   -joystick0.getRawAxis(1));
 SmartDashboard.putNumber("Left Front Motor: ",   leftFront.getSelectedSensorPosition());
