@@ -88,8 +88,8 @@ SmartDashboard.putNumber("navX Gyro YAW: ",   navx.getYaw());
 SmartDashboard.putNumber("Laser Time of Flight: ",   toFSensor.getRange());
 
 // Reset Drivetrain Encoders
-String Drivetrain_Reset = "J1 B3";
-SmartDashboard.putString("Drivetrain Encoder Reset Button: ", Drivetrain_Reset);
+String DRIVETRAIN_RESET = "J1 B3";
+SmartDashboard.putString("Drivetrain Encoder Reset Button: ", DRIVETRAIN_RESET);
 if (joystick1.getRawButtonReleased(3)) {
     leftFront.setSelectedSensorPosition(0);
     leftBack.setSelectedSensorPosition(0); 
@@ -97,8 +97,8 @@ if (joystick1.getRawButtonReleased(3)) {
     rightBack.setSelectedSensorPosition(0); }    
 
 // Reset navX Encoders
-String navX_Reset = "J0 B2";
-SmartDashboard.putString("navX Gyro Reset Button: ",   navX_Reset);
+String NAVX_RESET = "J0 B2";
+SmartDashboard.putString("navX Gyro Reset Button: ",   NAVX_RESET);
 if (joystick0.getRawButtonReleased(2)) {
     navx.reset(); }
  }
@@ -128,7 +128,7 @@ rightBack.setInverted(true);
 
 @Override
 public void teleopPeriodic() {
-   
+
 // Drivetrain - Joystick Deadband
 double turnDeadband = joystick0.getRawAxis(0); // X Axis
 double turn;
@@ -149,8 +149,8 @@ if(joystick0.getRawButtonPressed(5)) {
   incDecSpeed = 0.4; }  
 if(joystick0.getRawButtonPressed(6)) {
   incDecSpeed = 0.85; } 
-String Slow_Fast = " J0 5 _ 6";
-SmartDashboard.putString("Drivetrain Speed  Slow _ Fast  ",   Slow_Fast);
+String SLOW_FAST_TOGGLE = "J0 B5-B6";
+SmartDashboard.putString("Drivetrain Speed (Slow - Fast):",   SLOW_FAST_TOGGLE);
 
 leftFront.set(ControlMode.PercentOutput,  ((drive - turn) * incDecSpeed));
 leftBack.set(ControlMode.PercentOutput,   ((drive - turn) * incDecSpeed));
