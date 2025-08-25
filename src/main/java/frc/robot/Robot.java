@@ -110,8 +110,8 @@ public void autonomousPeriodic() {}
 
 @Override
 public void teleopInit() {
-// Initiates that all Mechanisms are Off
-// Initiates all Pluged-in Talon SRX Mag Encoders
+// Initiates that all mechanisms are Off
+// Initiates all plugged-in Talon SRX Mag Encoders
 leftFront.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
 leftFront.setSensorPhase(true);
 leftFront.setInverted(false);
