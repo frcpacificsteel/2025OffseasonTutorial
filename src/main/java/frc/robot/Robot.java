@@ -18,6 +18,7 @@ import com.studica.frc.AHRS.NavXComType;
 
 public class Robot extends TimedRobot {  
 
+// Constants
 private final Joystick joystick0 = new Joystick(0);
 private final Joystick joystick1 = new Joystick(1);
 
