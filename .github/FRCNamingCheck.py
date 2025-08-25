@@ -49,7 +49,8 @@ def check_java_file(filepath):
             if method_name in ["if", "for", "while", "switch"]:
                 continue
             if not is_camel_case(method_name):
-                errors.append(f"{filepath}:{i+1}: Method `{method_name}` should be camelCase")
+                if not str(method_name) == str(filepath).replace(".java",""):
+                    errors.append(f"{filepath}:{i+1}: Method `{method_name}` should be camelCase")
     return errors
 
 def main():
