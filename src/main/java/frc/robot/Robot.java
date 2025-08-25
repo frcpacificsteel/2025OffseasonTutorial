@@ -129,7 +129,7 @@ rightBack.setInverted(true);
 @Override
 public void teleopPeriodic() {
 
-// Drivetrain - Joystick Deadband
+// Drivetrain Joystick Deadband
 double turnDeadband = joystick0.getRawAxis(0); // X Axis
 double turn;
 if( Math.abs(turnDeadband) < 0.15 ) {
