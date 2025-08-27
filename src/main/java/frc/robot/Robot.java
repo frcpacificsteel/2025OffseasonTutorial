@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -105,26 +106,54 @@ if (joystick0.getRawButtonReleased(2)) {
  }
 
 @Override
-public void autonomousInit() {}
+public void autonomousInit() {
+  // Initiates that all mechanisms are off
+  // Initiates all plugged-in Talon SRX Mag Encoders
+  leftFront.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
+  leftFront.setSensorPhase(true);
+  leftFront.setInverted(false);
+  rightFront.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
+  rightFront.setSensorPhase(true);
+  rightFront.setInverted(true);
+  leftBack.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
+  leftBack.setSensorPhase(true);
+  leftBack.setInverted(false);
+  rightBack.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
+  rightBack.setSensorPhase(true);
+  rightBack.setInverted(true);
+}
 @Override
-public void autonomousPeriodic() {}
+public void autonomousPeriodic() {
+  double drive;
+  double turn;
+  if (Timer.getMatchTime() < 14) {
+    drive=1;
+    turn=0; }
+  else {
+    drive=0;
+    turn=0; }
+  leftFront.set(ControlMode.PercentOutput,  ((drive - turn) * incDecSpeed));
+  leftBack.set(ControlMode.PercentOutput,   ((drive - turn) * incDecSpeed));
+  rightFront.set(ControlMode.PercentOutput, ((drive + turn) * incDecSpeed));
+  rightBack.set(ControlMode.PercentOutput,  ((drive + turn) * incDecSpeed));
+}
 
 @Override
 public void teleopInit() {
-// Initiates that all mechanisms are off
-// Initiates all plugged-in Talon SRX Mag Encoders
-leftFront.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
-leftFront.setSensorPhase(true);
-leftFront.setInverted(false);
-rightFront.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
-rightFront.setSensorPhase(true);
-rightFront.setInverted(true);
-leftBack.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
-leftBack.setSensorPhase(true);
-leftBack.setInverted(false);
-rightBack.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
-rightBack.setSensorPhase(true);
-rightBack.setInverted(true);
+  // Initiates that all mechanisms are off
+  // Initiates all plugged-in Talon SRX Mag Encoders
+  leftFront.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
+  leftFront.setSensorPhase(true);
+  leftFront.setInverted(false);
+  rightFront.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
+  rightFront.setSensorPhase(true);
+  rightFront.setInverted(true);
+  leftBack.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
+  leftBack.setSensorPhase(true);
+  leftBack.setInverted(false);
+  rightBack.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.QuadEncoder, 0, 50);
+  rightBack.setSensorPhase(true);
+  rightBack.setInverted(true);
 }
 
 @Override
