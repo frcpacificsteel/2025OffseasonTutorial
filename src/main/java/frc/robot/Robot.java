@@ -126,7 +126,7 @@ public void autonomousInit() {
 public void autonomousPeriodic() {
   double drive;
   double turn;
-  if (Timer.getMatchTime() < 14) {
+  if (Timer.getTimestamp() < 5) {
     drive=1;
     turn=0; }
   else {
@@ -160,16 +160,16 @@ public void teleopInit() {
 public void teleopPeriodic() {
 
 // Drivetrain Joystick Deadband
-double turnDeadband = joystick0.getRawAxis(0); // X Axis
+double turnDeadband = joystick0.getRawAxis(2); // X Axis
 double turn;
-if( Math.abs(turnDeadband) < 0.15 ) {
+if( Math.abs(turnDeadband) < 0.2 ) {
   turn = 0; }
 else {
   turn = turnDeadband; }
 
 double driveDeadband = joystick0.getRawAxis(1); // Y Axis
 double drive = 0;
-if( Math.abs(driveDeadband) < 0.15 ) {
+if( Math.abs(driveDeadband) < 0.2 ) {
   drive = 0; }
 else {
   drive = driveDeadband; }    
@@ -177,7 +177,7 @@ else {
 // Robot Driving Control and Speed
 if(joystick0.getRawButtonPressed(5)) {
   incDecSpeed = 0.4; }  
-if(joystick0.getRawButtonPressed(6)) {
+if(joystick0.getRawButtonPressed(3)) {
   incDecSpeed = 0.85; } 
 String slowFastToggle = "J0 B5|B6";
 SmartDashboard.putString("Drivetrain Speed (Slow|Fast):",   slowFastToggle);
