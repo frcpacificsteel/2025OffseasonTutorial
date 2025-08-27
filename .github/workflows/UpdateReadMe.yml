@@ -30,7 +30,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "\n## Open Issues" > issues.md
+          echo "## Open Issues" > issues.md
           gh issue list --repo ${{ github.repository }} --limit 100 --json number,title,state,url | jq -r '.[] | "- [#\(.number)](\(.url)): \(.title) (\(.state))"' >> issues.md
 
       - name: Combine Markdown sections into report.md
